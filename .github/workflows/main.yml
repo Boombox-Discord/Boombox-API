@@ -1,0 +1,39 @@
+name: 'build-test'
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  tests:
+    name: ${{ matrix.session }} on Node V16.x - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - { os: ubuntu-latest, session: "build" }
+          - { os: windows-latest, session: "build" }
+          - { os: macos-latest, session: "build" }
+          - { os: ubuntu-latest, session: "test" }
+          - { os: windows-latest, session: "test" }
+          - { os: macos-latest, session: "test" }
+
+    steps:
+      - name: Set up Node V16.x environment
+        uses: actions/setup-node@v2.4.0
+        with:
+          node-version: 16.x
+
+      - name: Insatll node modules
+        run: |
+          npm install
+      
+      - name: Run build
+        if: matrix.session == 'build'
+        run: |
+          npm build
+
+      - name: Run Tests
+        if: matrix.session == 'test'
+        run: |
+          npm test
