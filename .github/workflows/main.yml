@@ -34,7 +34,7 @@ jobs:
       - name: Run build
         if: matrix.session == 'build'
         run: |
-          npm build
+          npm run build
 
       - name: Run Tests
         if: matrix.session == 'test'
