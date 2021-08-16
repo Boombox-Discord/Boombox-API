@@ -19,6 +19,9 @@ jobs:
           - { os: macos-latest, session: "test" }
 
     steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2.3.4
+
       - name: Set up Node V16.x environment
         uses: actions/setup-node@v2.4.0
         with:
