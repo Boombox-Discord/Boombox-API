@@ -1,12 +1,8 @@
-import express from 'express';
-import PingController from '../controllers/ping.controller';
+import express from "express";
+import QueueRouter from "./queue.router";
 
 const router = express.Router();
 
-router.get("/ping", async (_req, res) => {
-    const controller = new PingController();
-    const response = await controller.getMessage();
-    return res.send(response);
-})
+router.use("/queue", QueueRouter);
 
 export default router;

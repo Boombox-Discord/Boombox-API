@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {                       
+  "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
     "outDir": "dist",
@@ -8,7 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }

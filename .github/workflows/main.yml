@@ -1,4 +1,4 @@
-name: 'build-test'
+name: "build-test"
 
 on:
   - push
@@ -30,7 +30,7 @@ jobs:
       - name: Insatll node modules
         run: |
           npm install
-      
+
       - name: Run build
         if: matrix.session == 'build'
         run: |
