@@ -4,13 +4,19 @@ import dotenv from "dotenv";
 import Router from "./routes";
 import swaggerUi from "swagger-ui-express";
 import swaggetDocument from "./public/swagger.json";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app: Express = express();
 
-app.use(express.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.use(bodyParser.json());
 app.use(helmet());
 app.use(express.static("public"));
 

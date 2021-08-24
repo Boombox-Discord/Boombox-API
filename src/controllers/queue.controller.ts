@@ -1,6 +1,6 @@
-import { Get, Route } from "tsoa";
+import { Get, Route, Post, Body } from "tsoa";
 import redisClient from "../utils/redis";
-import { Response, Request } from "express";
+import { Response, Request, request } from "express";
 
 interface QueueResponse {
   message: string;
@@ -15,6 +15,12 @@ interface Queue {
   thumbnail: string;
 }
 
+interface UpdateQueueParams {
+  url: string;
+  thumbnail: string;
+  title: string;
+}
+
 @Route("queue")
 export default class QueueController {
   @Get("/:guildID")
@@ -26,10 +32,36 @@ export default class QueueController {
     }
     const queueJson = JSON.parse(queue);
 
-    console.log(queueJson);
-
     return {
       message: "Queue found",
+      guildID: queueJson.voiceChannel.guildId,
+      voiceChannel: queueJson.voiceChannel.id,
+      queue: queueJson.songs,
+    };
+  }
+
+  @Post("/:guildID")
+  public async updateQueue(
+    guildID: string,
+    @Body() requestBody: UpdateQueueParams
+  ): Promise<QueueResponse | null> {
+    const queue = await redisClient.get(`guild_${guildID}`);
+    if (!queue) {
+      return null;
+    }
+    const queueJson = JSON.parse(queue);
+
+    queueJson.songs.push({
+      title: requestBody.title,
+      url: requestBody.url,
+      thumbnail: requestBody.thumbnail,
+    });
+
+    await redisClient.set(`guild_${guildID}`, JSON.stringify(queueJson));
+    await redisClient.expire(`guild_${guildID}`, 86400);
+
+    return {
+      message: "Queue Updated",
       guildID: queueJson.voiceChannel.guildId,
       voiceChannel: queueJson.voiceChannel.id,
       queue: queueJson.songs,

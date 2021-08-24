@@ -43,6 +43,22 @@
         "required": ["message", "guildID", "voiceChannel", "queue"],
         "type": "object",
         "additionalProperties": false
+      },
+      "UpdateQueueParams": {
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": ["url", "thumbnail", "title"],
+        "type": "object",
+        "additionalProperties": false
       }
     },
     "securitySchemes": {}
@@ -91,6 +107,47 @@
             }
           }
         ]
+      },
+      "post": {
+        "operationId": "UpdateQueue",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/QueueResponse"
+                    }
+                  ],
+                  "nullable": true
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "guildID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQueueParams"
+              }
+            }
+          }
+        }
       }
     }
   },
