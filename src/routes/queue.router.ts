@@ -19,6 +19,7 @@ router.post("/:guildID", async (req, res) => {
     return res.status(400).json({ message: "No Title Provided" });
   const controller = new QueueController();
   const response = await controller.updateQueue(req.params.guildID, req.body);
+  if (!response) return res.status(404).json({ message: "No Queue Found" })
   return res.send(response);
 });
 

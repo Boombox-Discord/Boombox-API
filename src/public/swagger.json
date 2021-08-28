@@ -1,159 +1,172 @@
 {
-  "components": {
-    "examples": {},
-    "headers": {},
-    "parameters": {},
-    "requestBodies": {},
-    "responses": {},
-    "schemas": {
-      "Queue": {
-        "properties": {
-          "title": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "thumbnail": {
-            "type": "string"
-          }
-        },
-        "required": ["title", "url", "thumbnail"],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "QueueResponse": {
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "guildID": {
-            "type": "string"
-          },
-          "voiceChannel": {
-            "type": "string"
-          },
-          "queue": {
-            "items": {
-              "$ref": "#/components/schemas/Queue"
-            },
-            "type": "array"
-          }
-        },
-        "required": ["message", "guildID", "voiceChannel", "queue"],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "UpdateQueueParams": {
-        "properties": {
-          "url": {
-            "type": "string"
-          },
-          "thumbnail": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          }
-        },
-        "required": ["url", "thumbnail", "title"],
-        "type": "object",
-        "additionalProperties": false
-      }
-    },
-    "securitySchemes": {}
-  },
-  "info": {
-    "title": "boombox-api",
-    "version": "0.0.1",
-    "description": "An API for interacting with the Discord Bot Boombox",
-    "license": {
-      "name": "AGPL-3.0"
-    },
-    "contact": {
-      "name": "Boombox-Dev"
-    }
-  },
-  "openapi": "3.0.0",
-  "paths": {
-    "/queue/{guildID}": {
-      "get": {
-        "operationId": "GetQueue",
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/QueueResponse"
-                    }
-                  ],
-                  "nullable": true
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "guildID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "post": {
-        "operationId": "UpdateQueue",
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/QueueResponse"
-                    }
-                  ],
-                  "nullable": true
-                }
-              }
-            }
-          }
-        },
-        "security": [],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "guildID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateQueueParams"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "servers": [
-    {
-      "url": "/"
-    }
-  ]
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Queue": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"thumbnail": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title",
+					"url",
+					"thumbnail"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"QueueResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"guildID": {
+						"type": "string"
+					},
+					"voiceChannel": {
+						"type": "string"
+					},
+					"queue": {
+						"items": {
+							"$ref": "#/components/schemas/Queue"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"message",
+					"guildID",
+					"voiceChannel",
+					"queue"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateQueueParams": {
+				"properties": {
+					"url": {
+						"type": "string"
+					},
+					"thumbnail": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"url",
+					"thumbnail",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "boombox-api",
+		"version": "0.0.1",
+		"description": "An API for interacting with the Discord Bot Boombox",
+		"license": {
+			"name": "AGPL-3.0"
+		},
+		"contact": {
+			"name": "Boombox-Dev"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/queue/{guildID}": {
+			"get": {
+				"operationId": "GetQueue",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/QueueResponse"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "guildID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "UpdateQueue",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/QueueResponse"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "guildID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateQueueParams"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
 }

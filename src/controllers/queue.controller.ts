@@ -58,7 +58,6 @@ export default class QueueController {
     });
 
     await redisClient.set(`guild_${guildID}`, JSON.stringify(queueJson));
-    await redisClient.expire(`guild_${guildID}`, 86400);
 
     return {
       message: "Queue Updated",
